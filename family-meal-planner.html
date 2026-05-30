@@ -279,12 +279,27 @@ function selectDate(d){selDate=d;renderDates();loadLocalEntry();renderSaveBtn();
 function setMeal(m,v){if(m==='lunch')lunchAt=v;else{dinnerAt=v;if(v)homeTime=null;}renderToggles();renderHomeTime();}
 function selectTime(t){homeTime=(homeTime===t)?null:t;renderHomeTime();}
 
-async function callGas(params){
-  if(!gasUrl)throw new Error('GAS URL未設定');
-  const url=gasUrl+'?'+new URLSearchParams(params).toString();
-  const res=await fetch(url);
-  if(!res.ok)throw new Error('HTTP '+res.status);
-  return res.json();
+// JSONP方式でGASを呼び出す（CORSを回避）
+function callGas(params){
+  return new Promise((resolve,reject)=>{
+    const cbName='_cb'+Date.now();
+    const script=document.createElement('script');
+    const timer=setTimeout(()=>{
+      cleanup();reject(new Error('タイムアウト'));
+    },15000);
+    function cleanup(){
+      clearTimeout(timer);
+      delete window[cbName];
+      if(script.parentNode)script.parentNode.removeChild(script);
+    }
+    window[cbName]=function(data){
+      cleanup();resolve(data);
+    };
+    const p=new URLSearchParams({...params,callback:cbName});
+    script.src=gasUrl+'?'+p.toString();
+    script.onerror=()=>{cleanup();reject(new Error('通信エラー'));};
+    document.head.appendChild(script);
+  });
 }
 
 async function save(){
@@ -386,6 +401,8 @@ function init(){
   document.getElementById('header-sub').textContent=`${days[0].getMonth()+1}/${days[0].getDate()} 〜 ${days[6].getMonth()+1}/${days[6].getDate()}`;
   document.getElementById('setup-banner').style.display='none';
   renderWeekNav();renderNames();renderDates();renderToggles();renderHomeTime();renderSaveBtn();
+  // 起動時にバックグラウンドでデータ取得（集計タブを開いたとき即表示できるよう）
+  loadSummary();
 }
 init();
 </script>
