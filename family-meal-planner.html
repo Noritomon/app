@@ -21,12 +21,20 @@
   .view-btn{padding:6px 12px;font-size:12px;font-weight:500;border:1px solid var(--border);border-radius:20px;background:transparent;color:var(--text-sub);cursor:pointer;font-family:inherit}
   .view-btn.active{background:var(--text);color:#fff;border-color:var(--text)}
   .container{max-width:480px;margin:0 auto;padding:20px 16px 100px}
-  .setup-banner{background:#FFF8E6;border:1px solid #F5C842;border-radius:var(--r);padding:14px 16px;margin-bottom:20px}
-  .setup-banner h3{font-size:14px;font-weight:700;color:#7A5800;margin-bottom:6px}
-  .setup-banner p{font-size:12px;color:#7A5800;line-height:1.6}
-  .setup-banner input{width:100%;margin-top:10px;padding:10px 12px;font-size:13px;border:1px solid #E8C840;border-radius:var(--rs);background:#fff;font-family:inherit;outline:none}
-  .setup-save-btn{margin-top:8px;padding:9px 16px;font-size:13px;font-weight:700;background:#7A5800;color:#fff;border:none;border-radius:var(--rs);cursor:pointer;font-family:inherit;width:100%}
+  /* setup */
+  .setup-screen{position:fixed;inset:0;background:var(--bg);z-index:200;display:flex;align-items:center;justify-content:center;padding:24px}
+  .setup-card{background:var(--card);border-radius:var(--r);padding:28px 24px;width:100%;max-width:420px;box-shadow:0 4px 24px rgba(0,0,0,.08)}
+  .setup-card h2{font-size:18px;font-weight:700;margin-bottom:6px}
+  .setup-card p{font-size:13px;color:var(--text-sub);line-height:1.7;margin-bottom:20px}
+  .setup-field{margin-bottom:14px}
+  .setup-field label{font-size:11px;font-weight:700;color:var(--text-sub);letter-spacing:.6px;display:block;margin-bottom:6px;text-transform:uppercase}
+  .setup-field input{width:100%;padding:11px 13px;font-size:13px;border:1.5px solid var(--border);border-radius:var(--rs);background:#fff;font-family:inherit;outline:none;transition:border-color .15s}
+  .setup-field input:focus{border-color:var(--accent)}
+  .setup-btn{width:100%;padding:14px;font-size:15px;font-weight:700;background:var(--accent);color:#fff;border:none;border-radius:var(--r);cursor:pointer;font-family:inherit;margin-top:4px}
+  .setup-err{font-size:12px;color:#8B1A1A;margin-top:8px;display:none}
+  /* labels */
   .slabel{font-size:11px;font-weight:700;color:var(--text-sub);letter-spacing:0.8px;margin-bottom:10px;text-transform:uppercase}
+  /* names */
   .name-section{margin-bottom:24px}
   .name-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
   .name-chip{padding:14px 12px;border-radius:var(--rs);border:2px solid var(--border);background:var(--card);display:flex;align-items:center;gap:10px;cursor:pointer;transition:all .15s;position:relative;overflow:hidden}
@@ -38,6 +46,7 @@
   .check-icon{position:absolute;top:8px;right:8px;width:18px;height:18px;border-radius:50%;background:var(--accent);display:none;align-items:center;justify-content:center}
   .name-chip.selected .check-icon{display:flex}
   .check-icon svg{width:10px;height:10px}
+  /* dates */
   .date-section{margin-bottom:24px}
   .week-nav{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
   .week-nav-label{font-size:13px;font-weight:500;color:var(--text)}
@@ -53,6 +62,7 @@
   .date-num{font-size:18px;font-weight:700}
   .date-chip.selected .date-dow,.date-chip.selected .date-num{color:var(--accent)}
   .today-dot{width:5px;height:5px;border-radius:50%;background:var(--accent2);margin:4px auto 0}
+  /* meals */
   .meal-section{margin-bottom:24px}
   .meal-row{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
   .meal-info{display:flex;align-items:center;gap:12px}
@@ -63,6 +73,7 @@
   .toggle-opt{padding:8px 14px;font-size:13px;font-weight:500;cursor:pointer;color:var(--text-sub);font-family:inherit;border:none;background:transparent;white-space:nowrap}
   .toggle-opt.active-yes{background:var(--accent);color:#fff}
   .toggle-opt.active-no{background:#F0EDE8;color:var(--text)}
+  /* home time */
   .home-time-section{margin-bottom:24px}
   .home-time-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r);padding:16px 18px}
   .home-time-label{font-size:15px;font-weight:500;margin-bottom:12px}
@@ -70,11 +81,15 @@
   .time-chip{padding:9px 0;text-align:center;font-size:12px;font-weight:500;border:1px solid var(--border);border-radius:var(--rs);cursor:pointer;color:var(--text-sub);background:var(--bg)}
   .time-chip.selected{background:var(--accent2);color:#fff;border-color:var(--accent2)}
   .time-chip:active{transform:scale(0.95)}
+  /* save */
   .save-wrap{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--border);padding:16px 20px 32px}
   .save-btn{width:100%;padding:16px;font-size:15px;font-weight:700;background:var(--accent);color:#fff;border:none;border-radius:var(--r);cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px}
   .save-btn:active{transform:scale(0.98);opacity:.9}
   .save-btn:disabled{background:var(--border);color:var(--text-hint);cursor:not-allowed;transform:none}
-  .summary-day{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:12px;overflow:hidden}
+  /* summary */
+  .summary-week-label{font-size:12px;font-weight:700;color:var(--text-sub);letter-spacing:.5px;margin:18px 0 8px}
+  .summary-week-label:first-child{margin-top:0}
+  .summary-day{background:var(--card);border:1px solid var(--border);border-radius:var(--r);margin-bottom:10px;overflow:hidden}
   .summary-day-header{padding:14px 18px;display:flex;align-items:center;justify-content:space-between}
   .summary-day-title{font-size:15px;font-weight:600}
   .count-badges{display:flex;gap:6px}
@@ -86,7 +101,7 @@
   .summary-row{padding:12px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--border)}
   .summary-row:last-child{border-bottom:none}
   .summary-avatar{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
-  .summary-name{font-size:14px;font-weight:500;min-width:50px}
+  .summary-name{font-size:14px;font-weight:500;min-width:56px}
   .summary-tags{display:flex;gap:5px;flex-wrap:wrap;flex:1}
   .stag{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:600}
   .stag-l{background:var(--accent-l);color:var(--accent)}
@@ -96,16 +111,36 @@
   .summary-empty{text-align:center;padding:16px;color:var(--text-hint);font-size:13px}
   .sloading{text-align:center;padding:40px;color:var(--text-sub);font-size:14px}
   .refresh-btn{display:block;margin:0 auto 16px;padding:8px 20px;font-size:13px;font-weight:500;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-family:inherit;color:var(--text-sub)}
+  /* toast */
   .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1714;color:#fff;padding:12px 20px;border-radius:24px;font-size:14px;font-weight:500;opacity:0;transition:all .25s;white-space:nowrap;pointer-events:none;z-index:999}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
   .toast.error{background:#8B1A1A}
 </style>
 </head>
 <body>
+
+<!-- Firebase 初回設定画面 -->
+<div class="setup-screen" id="setup-screen" style="display:none">
+  <div class="setup-card">
+    <h2>🔥 Firebase 設定</h2>
+    <p>Firebase Realtime Database の接続情報を入力してください。<br>設定は一度だけです。README.txt を参照してください。</p>
+    <div class="setup-field">
+      <label>Database URL</label>
+      <input id="s-dburl" type="url" placeholder="https://your-project-default-rtdb.firebaseio.com" />
+    </div>
+    <div class="setup-field">
+      <label>API Key</label>
+      <input id="s-apikey" type="text" placeholder="AIzaSy..." />
+    </div>
+    <div id="setup-err" class="setup-err">接続に失敗しました。URLとAPI Keyを確認してください。</div>
+    <button class="setup-btn" onclick="setupSave()">接続して開始</button>
+  </div>
+</div>
+
 <div class="header">
   <div>
     <div class="header-title">🍽 家族の食事プランナー</div>
-    <div class="header-sub" id="header-sub">読み込み中...</div>
+    <div class="header-sub" id="header-sub">接続中...</div>
   </div>
   <div class="view-toggle">
     <button class="view-btn active" onclick="setView('input')">入力</button>
@@ -115,13 +150,6 @@
 
 <div class="container">
   <div id="view-input">
-    <div class="setup-banner" id="setup-banner">
-      <h3>⚙️ 初回セットアップ</h3>
-      <p>Google Apps Script のウェブアプリURLを貼り付けてください。<br>設定方法は同梱の README.txt を参照してください。</p>
-      <input type="url" id="gas-url-input" placeholder="https://script.google.com/macros/s/..." />
-      <button class="setup-save-btn" onclick="saveGasUrl()">URLを保存して開始</button>
-    </div>
-
     <div class="name-section">
       <div class="slabel">あなたは？</div>
       <div class="name-grid" id="name-grid"></div>
@@ -152,7 +180,7 @@
         </div>
       </div>
     </div>
-    <div class="home-time-section" id="home-time-section">
+    <div class="home-time-section">
       <div class="slabel">帰宅時間</div>
       <div class="home-time-card">
         <div class="home-time-label">🏠 何時ごろ帰りますか？（任意）</div>
@@ -173,20 +201,78 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ═══════════════════════════════════════════
+//  設定
+// ═══════════════════════════════════════════
 const MEMBERS=[
   {name:'のりとも',emoji:'🧑',color:'#E8F0F8',tc:'#1D4E7A'},
-  {name:'ゆかり',emoji:'👩',color:'#EBF2ED',tc:'#2D5A3D'},
+  {name:'ゆかり',  emoji:'👩',color:'#EBF2ED',tc:'#2D5A3D'},
   {name:'さきょう',emoji:'🧒',color:'#FDF0E8',tc:'#8B4513'},
-  {name:'あおい',emoji:'👧',color:'#F8ECF5',tc:'#6B3070'},
+  {name:'あおい',  emoji:'👧',color:'#F8ECF5',tc:'#6B3070'},
 ];
 const TIMES=['10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00','21:00','22:00','23:00','24:00'];
 const DOW=['日','月','火','水','木','金','土'];
-const GK='family_planner_gas_url';
+const LS_KEY='fmp_firebase_config';
 
-let gasUrl=localStorage.getItem(GK)||'https://script.google.com/macros/s/AKfycbxJz4xisRaC5CDmxO_NgAgBwtkLZTSzrprQfeCHccg-EEtfwK0wq3xIdn1kakg5LeftcA/exec';
+// ═══════════════════════════════════════════
+//  Firebase REST API ラッパー
+//  （SDKなし・fetch のみで Realtime DB を操作）
+// ═══════════════════════════════════════════
+let fbDbUrl='';
+let fbApiKey='';
+
+function fbUrl(path){
+  return `${fbDbUrl}/${path}.json?auth=${fbApiKey}`;
+}
+async function fbGet(path){
+  const r=await fetch(fbUrl(path));
+  if(!r.ok) throw new Error('DB取得失敗: '+r.status);
+  return r.json();
+}
+async function fbPut(path,data){
+  const r=await fetch(fbUrl(path),{
+    method:'PUT',
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify(data)
+  });
+  if(!r.ok) throw new Error('DB書込失敗: '+r.status);
+  return r.json();
+}
+
+// ═══════════════════════════════════════════
+//  セットアップ
+// ═══════════════════════════════════════════
+function loadConfig(){
+  try{
+    const c=JSON.parse(localStorage.getItem(LS_KEY)||'{}');
+    if(c.dbUrl&&c.apiKey){fbDbUrl=c.dbUrl.replace(/\/$/,'');fbApiKey=c.apiKey;return true;}
+  }catch(e){}
+  return false;
+}
+async function setupSave(){
+  const dbUrl=document.getElementById('s-dburl').value.trim().replace(/\/$/,'');
+  const apiKey=document.getElementById('s-apikey').value.trim();
+  if(!dbUrl||!apiKey){document.getElementById('setup-err').style.display='block';return;}
+  fbDbUrl=dbUrl;fbApiKey=apiKey;
+  // 接続テスト
+  try{
+    await fbGet('ping');
+  }catch(e){
+    // 404 (null) は正常、それ以外はエラー
+    if(!e.message.includes('404')&&!e.message.includes('DB取得失敗: 404')){
+      // nullが返れば成功とみなす（キーが無いだけ）
+    }
+  }
+  localStorage.setItem(LS_KEY,JSON.stringify({dbUrl,apiKey}));
+  document.getElementById('setup-screen').style.display='none';
+  initApp();
+}
+
+// ═══════════════════════════════════════════
+//  アプリ状態
+// ═══════════════════════════════════════════
 let selMember=null,selDate=null,lunchAt=true,dinnerAt=true,homeTime=null;
-let localCache={};
-let weekOffset=0; // 0=今週, 1=来週, 2=再来週...
+let weekOffset=0;
 
 const today0=new Date();today0.setHours(0,0,0,0);
 const todayStr=today0.toISOString().slice(0,10);
@@ -195,9 +281,7 @@ const fmtDate=s=>{const d=new Date(s+'T00:00:00');return `${d.getMonth()+1}/${d.
 
 function getWeekDays(offset){
   return Array.from({length:7},(_,i)=>{
-    const d=new Date(today0);
-    d.setDate(today0.getDate()+offset*7+i);
-    return d;
+    const d=new Date(today0);d.setDate(today0.getDate()+offset*7+i);return d;
   });
 }
 function currentWeekDays(){return getWeekDays(weekOffset);}
@@ -207,29 +291,34 @@ function shiftWeek(dir){
   if(next<0)return;
   weekOffset=next;
   const days=currentWeekDays();
-  // 選択日が新しい週に含まれない場合は先頭日を選択
-  if(!days.find(d=>dk(d)===selDate)){
-    selDate=dk(days[0]);
-    loadLocalEntry();
-  }
-  renderDates();
-  renderWeekNav();
+  if(!days.find(d=>dk(d)===selDate)) selDate=dk(days[0]);
+  renderDates();renderWeekNav();
+  loadCurrentEntry();
 }
 
+// ═══════════════════════════════════════════
+//  Firebase データ操作
+// ═══════════════════════════════════════════
+// パス: plans/{date}/{memberIndex}
+async function dbSave(dateKey,memberIndex,entry){
+  await fbPut(`plans/${dateKey}/${memberIndex}`,entry);
+}
+async function dbGetEntry(dateKey,memberIndex){
+  return await fbGet(`plans/${dateKey}/${memberIndex}`);
+}
+async function dbGetAll(){
+  return await fbGet('plans');
+}
+
+// ═══════════════════════════════════════════
+//  描画
+// ═══════════════════════════════════════════
 function renderWeekNav(){
   const days=currentWeekDays();
-  const s=days[0],e=days[6];
-  document.getElementById('week-nav-label').textContent=`${s.getMonth()+1}/${s.getDate()} 〜 ${e.getMonth()+1}/${e.getDate()}`;
+  document.getElementById('week-nav-label').textContent=
+    `${days[0].getMonth()+1}/${days[0].getDate()} 〜 ${days[6].getMonth()+1}/${days[6].getDate()}`;
   document.getElementById('week-prev').disabled=(weekOffset===0);
 }
-function saveGasUrl(){
-  const v=document.getElementById('gas-url-input').value.trim();
-  if(!v.startsWith('https://script.google.com')){showToast('正しいGASのURLを入力してください',true);return;}
-  gasUrl=v;localStorage.setItem(GK,gasUrl);
-  document.getElementById('setup-banner').style.display='none';
-  showToast('URLを保存しました ✓');
-}
-
 function renderNames(){
   document.getElementById('name-grid').innerHTML=MEMBERS.map((m,i)=>`
     <div class="name-chip${selMember===i?' selected':''}" onclick="selectMember(${i})">
@@ -251,121 +340,115 @@ function renderDates(){
 }
 function renderToggles(){
   document.getElementById('lunch-yes').className='toggle-opt'+(lunchAt?' active-yes':'');
-  document.getElementById('lunch-no').className='toggle-opt'+(!lunchAt?' active-no':'');
+  document.getElementById('lunch-no').className ='toggle-opt'+(!lunchAt?' active-no':'');
   document.getElementById('dinner-yes').className='toggle-opt'+(dinnerAt?' active-yes':'');
-  document.getElementById('dinner-no').className='toggle-opt'+(!dinnerAt?' active-no':'');
+  document.getElementById('dinner-no').className ='toggle-opt'+(!dinnerAt?' active-no':'');
 }
 function renderHomeTime(){
-  // 常に帰宅時間を表示（任意入力）
   document.getElementById('time-grid').innerHTML=TIMES.map(t=>
     `<div class="time-chip${homeTime===t?' selected':''}" onclick="selectTime('${t}')">${t}</div>`).join('');
 }
 function renderSaveBtn(){
   const b=document.getElementById('save-btn');
   if(selMember===null){b.disabled=true;b.textContent='名前を選んでください';}
-  else if(!selDate){b.disabled=true;b.textContent='日付を選んでください';}
-  else{b.disabled=false;b.textContent='✓ 保存する';}
-}
-function loadLocalEntry(){
-  if(selMember===null||!selDate)return;
-  const e=localCache[`${selDate}_${selMember}`];
-  if(e){lunchAt=e.lunch;dinnerAt=e.dinner;homeTime=e.homeTime||null;}
-  else{lunchAt=true;dinnerAt=true;homeTime=null;}
-  renderToggles();renderHomeTime();
+  else if(!selDate)   {b.disabled=true;b.textContent='日付を選んでください';}
+  else                {b.disabled=false;b.textContent='✓ 保存する';}
 }
 
-function selectMember(i){selMember=i;renderNames();loadLocalEntry();renderSaveBtn();}
-function selectDate(d){selDate=d;renderDates();loadLocalEntry();renderSaveBtn();}
-function setMeal(m,v){if(m==='lunch')lunchAt=v;else{dinnerAt=v;if(v)homeTime=null;}renderToggles();renderHomeTime();}
+// ═══════════════════════════════════════════
+//  操作ハンドラ
+// ═══════════════════════════════════════════
+function selectMember(i){selMember=i;renderNames();loadCurrentEntry();renderSaveBtn();}
+function selectDate(d){selDate=d;renderDates();loadCurrentEntry();renderSaveBtn();}
+function setMeal(m,v){
+  if(m==='lunch')lunchAt=v;
+  else dinnerAt=v;
+  renderToggles();
+}
 function selectTime(t){homeTime=(homeTime===t)?null:t;renderHomeTime();}
 
-// JSONP方式でGASを呼び出す（CORSを回避）
-function callGas(params){
-  return new Promise((resolve,reject)=>{
-    const cbName='_cb'+Date.now();
-    const script=document.createElement('script');
-    const timer=setTimeout(()=>{
-      cleanup();reject(new Error('タイムアウト'));
-    },15000);
-    function cleanup(){
-      clearTimeout(timer);
-      delete window[cbName];
-      if(script.parentNode)script.parentNode.removeChild(script);
+// 選択中のメンバー×日付のエントリをDBから読んでフォームに反映
+async function loadCurrentEntry(){
+  if(selMember===null||!selDate)return;
+  try{
+    const e=await dbGetEntry(selDate,selMember);
+    if(e&&e.lunch!==undefined){
+      lunchAt=e.lunch; dinnerAt=e.dinner; homeTime=e.homeTime||null;
+    } else {
+      lunchAt=true; dinnerAt=true; homeTime=null;
     }
-    window[cbName]=function(data){
-      cleanup();resolve(data);
-    };
-    const p=new URLSearchParams({...params,callback:cbName});
-    script.src=gasUrl+'?'+p.toString();
-    script.onerror=()=>{cleanup();reject(new Error('通信エラー'));};
-    document.head.appendChild(script);
-  });
+  }catch(ex){
+    lunchAt=true; dinnerAt=true; homeTime=null;
+  }
+  renderToggles(); renderHomeTime();
 }
 
 async function save(){
   if(selMember===null||!selDate)return;
   const b=document.getElementById('save-btn');
   b.disabled=true;b.textContent='保存中...';
-  localCache[`${selDate}_${selMember}`]={lunch:lunchAt,dinner:dinnerAt,homeTime};
   try{
-    if(!gasUrl)throw new Error('no_url');
-    const r=await callGas({
-      action:'save',
+    await dbSave(selDate,selMember,{
       member:MEMBERS[selMember].name,
       memberIndex:selMember,
-      date:selDate,
-      lunch:lunchAt?'TRUE':'FALSE',
-      dinner:dinnerAt?'TRUE':'FALSE',
-      homeTime:homeTime||''
+      lunch:lunchAt,
+      dinner:dinnerAt,
+      homeTime:homeTime||'',
+      updatedAt:new Date().toISOString()
     });
-    if(r.status!=='ok')throw new Error(r.message||'不明なエラー');
     showToast(`${MEMBERS[selMember].name}の予定を保存しました ✓`);
+    // 翌日に自動送り
+    const days=currentWeekDays();
+    const idx=days.findIndex(d=>dk(d)===selDate);
+    if(idx>=0&&idx<days.length-1){
+      selDate=dk(days[idx+1]);
+      renderDates();
+      await loadCurrentEntry();
+    }
   }catch(e){
-    showToast(e.message==='no_url'?'URLを設定してください':'保存失敗: '+e.message,true);
+    showToast('保存失敗: '+e.message,true);
   }finally{
     b.disabled=false;renderSaveBtn();
   }
-  const days=currentWeekDays();
-  const idx=days.findIndex(d=>dk(d)===selDate);
-  if(idx>=0&&idx<days.length-1){selDate=dk(days[idx+1]);loadLocalEntry();renderDates();}
 }
 
+// ═══════════════════════════════════════════
+//  集計
+// ═══════════════════════════════════════════
 async function loadSummary(){
   document.getElementById('summary-container').innerHTML='<div class="sloading">読み込み中...</div>';
   try{
-    const r=await callGas({action:'getAll'});
-    if(r.status!=='ok')throw new Error(r.message);
-    renderSummaryData(r.data||[]);
+    const all=await dbGetAll(); // {date: {mi: entry}}
+    renderSummaryData(all||{});
   }catch(e){
-    document.getElementById('summary-container').innerHTML=`<div class="sloading" style="color:#8B1A1A">取得失敗: ${e.message}</div>`;
+    document.getElementById('summary-container').innerHTML=
+      `<div class="sloading" style="color:#8B1A1A">取得失敗: ${e.message}</div>`;
   }
 }
 
-function renderSummaryData(rows){
-  const byKey={};
-  rows.forEach(r=>{byKey[`${r.date}_${r.memberIndex}`]=r;});
-  Object.keys(localCache).forEach(k=>{
-    if(!byKey[k]){const[d,mi]=k.split('_');byKey[k]={...localCache[k],date:d,memberIndex:parseInt(mi)};}
-  });
-  // 集計は全4週分（今週〜3週後）を表示
+function renderSummaryData(all){
   let html='';
   for(let w=0;w<4;w++){
     const days=getWeekDays(w);
     const s=days[0],e=days[6];
-    html+=`<div style="font-size:12px;font-weight:700;color:var(--text-sub);letter-spacing:.5px;margin:18px 0 8px">${w===0?'今週 ':''}${s.getMonth()+1}/${s.getDate()} 〜 ${e.getMonth()+1}/${e.getDate()}</div>`;
+    html+=`<div class="summary-week-label">${w===0?'今週 ':''}${s.getMonth()+1}/${s.getDate()} 〜 ${e.getMonth()+1}/${e.getDate()}</div>`;
     days.forEach(d=>{
       const key=dk(d),isT=key===todayStr;
+      const dayData=all[key]||{};
       let lc=0,dc=0;
       const rhtml=MEMBERS.map((m,mi)=>{
-        const e2=byKey[`${key}_${mi}`];
+        const e2=dayData[mi];
         if(!e2)return null;
-        const lo=e2.lunch===true||e2.lunch==='TRUE';
-        const doo=e2.dinner===true||e2.dinner==='TRUE';
-        if(lo)lc++;if(doo)dc++;
-        let tags=`<span class="stag ${lo?'stag-l':'stag-out'}">☀ 昼${lo?'○':'×'}</span>`;
-        tags+=`<span class="stag ${doo?'stag-d':'stag-out'}">🌙 夜${doo?'○':'×'}</span>`;
+        if(e2.lunch) lc++;
+        if(e2.dinner)dc++;
+        let tags=`<span class="stag ${e2.lunch?'stag-l':'stag-out'}">☀ 昼${e2.lunch?'○':'×'}</span>`;
+        tags+=`<span class="stag ${e2.dinner?'stag-d':'stag-out'}">🌙 夜${e2.dinner?'○':'×'}</span>`;
         if(e2.homeTime)tags+=`<span class="stag stag-h">🏠 ${e2.homeTime}</span>`;
-        return `<div class="summary-row"><div class="summary-avatar">${m.emoji}</div><div class="summary-name">${m.name}</div><div class="summary-tags">${tags}</div></div>`;
+        return `<div class="summary-row">
+          <div class="summary-avatar">${m.emoji}</div>
+          <div class="summary-name">${m.name}</div>
+          <div class="summary-tags">${tags}</div>
+        </div>`;
       }).filter(Boolean);
       const lb=lc>0?`<span class="cbadge cbadge-l">☀ ${lc}人</span>`:`<span class="cbadge cbadge-z">☀ 0</span>`;
       const db=dc>0?`<span class="cbadge cbadge-d">🌙 ${dc}人</span>`:`<span class="cbadge cbadge-z">🌙 0</span>`;
@@ -381,8 +464,12 @@ function renderSummaryData(rows){
   document.getElementById('summary-container').innerHTML=html;
 }
 
+// ═══════════════════════════════════════════
+//  ビュー切替
+// ═══════════════════════════════════════════
 function setView(v){
-  document.querySelectorAll('.view-btn').forEach((b,i)=>b.classList.toggle('active',['input','summary'][i]===v));
+  document.querySelectorAll('.view-btn').forEach((b,i)=>
+    b.classList.toggle('active',['input','summary'][i]===v));
   document.getElementById('view-input').style.display=v==='input'?'':'none';
   document.getElementById('view-summary').style.display=v==='summary'?'':'none';
   document.getElementById('save-wrap').style.display=v==='input'?'':'none';
@@ -391,20 +478,29 @@ function setView(v){
 
 function showToast(msg,isError=false){
   const t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast'+(isError?' error':'')+' show';
+  t.textContent=msg;
+  t.className='toast'+(isError?' error':'')+' show';
   setTimeout(()=>t.className='toast'+(isError?' error':''),2500);
 }
 
-function init(){
+// ═══════════════════════════════════════════
+//  起動
+// ═══════════════════════════════════════════
+function initApp(){
   selDate=todayStr;
   const days=currentWeekDays();
-  document.getElementById('header-sub').textContent=`${days[0].getMonth()+1}/${days[0].getDate()} 〜 ${days[6].getMonth()+1}/${days[6].getDate()}`;
-  document.getElementById('setup-banner').style.display='none';
+  document.getElementById('header-sub').textContent=
+    `${days[0].getMonth()+1}/${days[0].getDate()} 〜 ${days[6].getMonth()+1}/${days[6].getDate()}`;
   renderWeekNav();renderNames();renderDates();renderToggles();renderHomeTime();renderSaveBtn();
-  // 起動時にバックグラウンドでデータ取得（集計タブを開いたとき即表示できるよう）
-  loadSummary();
+  loadSummary(); // バックグラウンドで集計データ取得
 }
-init();
+
+// 設定済みかチェックして起動
+if(loadConfig()){
+  initApp();
+} else {
+  document.getElementById('setup-screen').style.display='flex';
+}
 </script>
 </body>
 </html>
