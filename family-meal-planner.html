@@ -196,7 +196,7 @@
 </div>
 
 <div class="save-wrap" id="save-wrap">
-  <button class="save-btn" id="save-btn" onclick="save()">✓ 保存する</button>
+  <button class="save-btn" id="save-btn" onclick="save()">保存する</button>
 </div>
 <div class="toast" id="toast"></div>
 
@@ -230,8 +230,9 @@ async function fbGet(path){
   return r.json();
 }
 async function fbPut(path,data){
+  // PUTはiOS Safariでブロックされる場合があるためPATCHを使用
   const r=await fetch(fbUrl(path),{
-    method:'PUT',
+    method:'PATCH',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(data)
   });
@@ -275,8 +276,15 @@ let selMember=null,selDate=null,lunchAt=true,dinnerAt=true,homeTime=null;
 let weekOffset=0;
 
 const today0=new Date();today0.setHours(0,0,0,0);
-const todayStr=today0.toISOString().slice(0,10);
-const dk=d=>d.toISOString().slice(0,10);
+const todayStr=localDateStr(today0);
+const dk=d=>localDateStr(d);
+function localDateStr(d){
+  // toISOString()はUTCのためJSTでは日付がずれる。ローカル日付を使う
+  const y=d.getFullYear();
+  const m=String(d.getMonth()+1).padStart(2,'0');
+  const day=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${day}`;
+}
 const fmtDate=s=>{const d=new Date(s+'T00:00:00');return `${d.getMonth()+1}/${d.getDate()}(${DOW[d.getDay()]})`;};
 
 function getWeekDays(offset){
