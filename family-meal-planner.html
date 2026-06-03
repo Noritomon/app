@@ -383,10 +383,10 @@ async function loadCurrentEntry(){
     if(e&&e.lunch!==undefined){
       lunchAt=e.lunch; dinnerAt=e.dinner; homeTime=e.homeTime||null;
     } else {
-      lunchAt=true; dinnerAt=true; homeTime=null;
+      lunchAt=null; dinnerAt=null; homeTime=null;
     }
   }catch(ex){
-    lunchAt=true; dinnerAt=true; homeTime=null;
+    lunchAt=null; dinnerAt=null; homeTime=null;
   }
   renderToggles(); renderHomeTime();
 }
