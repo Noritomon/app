@@ -295,9 +295,7 @@ function getWeekDays(offset){
 function currentWeekDays(){return getWeekDays(weekOffset);}
 
 function shiftWeek(dir){
-  const next=weekOffset+dir;
-  if(next<0)return;
-  weekOffset=next;
+  weekOffset=weekOffset+dir;
   const days=currentWeekDays();
   if(!days.find(d=>dk(d)===selDate)) selDate=dk(days[0]);
   renderDates();renderWeekNav();
@@ -325,7 +323,7 @@ function renderWeekNav(){
   const days=currentWeekDays();
   document.getElementById('week-nav-label').textContent=
     `${days[0].getMonth()+1}/${days[0].getDate()} 〜 ${days[6].getMonth()+1}/${days[6].getDate()}`;
-  document.getElementById('week-prev').disabled=(weekOffset===0);
+  document.getElementById('week-prev').disabled=false;
 }
 function renderNames(){
   document.getElementById('name-grid').innerHTML=MEMBERS.map((m,i)=>`
@@ -436,10 +434,16 @@ async function loadSummary(){
 
 function renderSummaryData(all){
   let html='';
-  for(let w=0;w<4;w++){
+  // 表示範囲: 過去4週 〜 未来4週（現在表示中の週を基準に）
+  const startW = Math.min(weekOffset, 0) - 4;
+  const endW   = Math.max(weekOffset, 0) + 4;
+  for(let w=startW; w<=endW; w++){
     const days=getWeekDays(w);
     const s=days[0],e=days[6];
-    html+=`<div class="summary-week-label">${w===0?'今週 ':''}${s.getMonth()+1}/${s.getDate()} 〜 ${e.getMonth()+1}/${e.getDate()}</div>`;
+    let weekLabel = `${s.getMonth()+1}/${s.getDate()} 〜 ${e.getMonth()+1}/${e.getDate()}`;
+    if(w===0) weekLabel = '今週 '+weekLabel;
+    else if(w===weekOffset && w!==0) weekLabel = '表示中 '+weekLabel;
+    html+=`<div class="summary-week-label">${weekLabel}</div>`;
     days.forEach(d=>{
       const key=dk(d),isT=key===todayStr;
       const dayData=all[key]||{};
