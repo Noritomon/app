@@ -111,6 +111,9 @@
   .summary-empty{text-align:center;padding:16px;color:var(--text-hint);font-size:13px}
   .sloading{text-align:center;padding:40px;color:var(--text-sub);font-size:14px}
   .refresh-btn{display:block;margin:0 auto 16px;padding:8px 20px;font-size:13px;font-weight:500;background:var(--card);border:1px solid var(--border);border-radius:20px;cursor:pointer;font-family:inherit;color:var(--text-sub)}
+  .summary-btn-row{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+  .summary-btn-row .refresh-btn{margin-bottom:0}
+  .refresh-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
   /* toast */
   .toast{position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);background:#1A1714;color:#fff;padding:12px 20px;border-radius:24px;font-size:14px;font-weight:500;opacity:0;transition:all .25s;white-space:nowrap;pointer-events:none;z-index:999}
   .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
@@ -190,7 +193,11 @@
   </div>
 
   <div id="view-summary" style="display:none">
-    <button class="refresh-btn" onclick="loadSummary()">↻ 最新データを取得</button>
+    <div class="summary-btn-row">
+      <button class="refresh-btn" id="prev-weeks-btn" onclick="shiftSummaryWeeks(-1)">前の3週</button>
+      <button class="refresh-btn" onclick="loadSummary(true)">↻ 最新データを取得</button>
+      <button class="refresh-btn" id="next-weeks-btn" onclick="shiftSummaryWeeks(1)">次の3週</button>
+    </div>
     <div id="summary-container"><div class="sloading">読み込み中...</div></div>
   </div>
 </div>
@@ -421,30 +428,55 @@ async function save(){
 // ═══════════════════════════════════════════
 //  集計
 // ═══════════════════════════════════════════
-async function loadSummary(){
+// 集計タブの表示開始週（0=今週）。3週分ずつ表示する
+let summaryStartWeek=0;
+let lastSummaryData=null;
+
+async function loadSummary(resetToToday){
+  if(resetToToday) summaryStartWeek=0;
   document.getElementById('summary-container').innerHTML='<div class="sloading">読み込み中...</div>';
   try{
     const all=await dbGetAll(); // {date: {mi: entry}}
-    renderSummaryData(all||{});
+    lastSummaryData=all||{};
+    renderSummaryData(lastSummaryData);
   }catch(e){
     document.getElementById('summary-container').innerHTML=
       `<div class="sloading" style="color:#8B1A1A">取得失敗: ${e.message}</div>`;
   }
 }
 
+function shiftSummaryWeeks(dir){
+  summaryStartWeek += dir*3;
+  if(lastSummaryData) renderSummaryData(lastSummaryData);
+  else loadSummary();
+}
+
 function renderSummaryData(all){
   let html='';
-  // 表示範囲: 過去4週 〜 未来4週（現在表示中の週を基準に）
-  const startW = Math.min(weekOffset, 0) - 4;
-  const endW   = Math.max(weekOffset, 0) + 4;
-  for(let w=startW; w<=endW; w++){
+
+  // 表示開始週から3週分を表示（過去表示時は新しい週から古い週の順）
+  for(let i=0;i<3;i++){
+    const w = summaryStartWeek<0 ? (summaryStartWeek + (2-i)) : (summaryStartWeek + i);
     const days=getWeekDays(w);
     const s=days[0],e=days[6];
     let weekLabel = `${s.getMonth()+1}/${s.getDate()} 〜 ${e.getMonth()+1}/${e.getDate()}`;
     if(w===0) weekLabel = '今週 '+weekLabel;
-    else if(w===weekOffset && w!==0) weekLabel = '表示中 '+weekLabel;
+    else if(w>0) weekLabel = `${w}週後 `+weekLabel;
+    else weekLabel = `${-w}週前 `+weekLabel;
     html+=`<div class="summary-week-label">${weekLabel}</div>`;
-    days.forEach(d=>{
+
+    // 今週(w===0)かつ表示開始週が今週の場合は、今日以降の日付だけを表示（今日が一番上に来るように）
+    let daysToShow = (w===0 && summaryStartWeek===0) ? days.filter(d=>dk(d)>=todayStr) : days;
+
+    // 過去週は新しい日から古い日へ（逆順）表示
+    if(summaryStartWeek<0) daysToShow=[...daysToShow].reverse();
+
+    if(daysToShow.length===0){
+      html+=`<div class="summary-empty">表示できる日付がありません</div>`;
+      continue;
+    }
+
+    daysToShow.forEach(d=>{
       const key=dk(d),isT=key===todayStr;
       const dayData=all[key]||{};
       let lc=0,dc=0;
@@ -485,7 +517,9 @@ function setView(v){
   document.getElementById('view-input').style.display=v==='input'?'':'none';
   document.getElementById('view-summary').style.display=v==='summary'?'':'none';
   document.getElementById('save-wrap').style.display=v==='input'?'':'none';
-  if(v==='summary')loadSummary();
+  if(v==='summary'){
+    loadSummary(true);
+  }
 }
 
 function showToast(msg,isError=false){
